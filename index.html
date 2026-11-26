@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f6f3">
+<meta name="description" content="أنجز - أدوات مجانية للملفات والصور والحسابات والنصوص والمستندات.">
+<title>أنجز | أدواتك وخدماتك في مكان واحد</title>
+<style>
+:root{--bg:#f7f9fc;--card:#fff;--text:#243247;--muted:#778397;--line:#e8edf4;--blue:#3978e8;--green:#20a477;--red:#e85b66;--navy:#203b56;--shadow:0 8px 26px rgba(35,65,105,.055);--base-font:16px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;font-size:var(--base-font);line-height:1.7;color:var(--text)}button,input,textarea,select{font:inherit}a{text-decoration:none;color:inherit}.wrap{max-width:1120px;margin:auto;padding:0 15px}
+.top{background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid var(--line);box-shadow:0 3px 18px #23416909}.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:30px;font-weight:900;color:#263b59;white-space:nowrap}.brand span{color:var(--green)}.navlinks{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.navlinks a{font-size:13px;font-weight:700;color:#59677b;padding:9px 10px;border-radius:11px;white-space:nowrap}.navlinks a:hover,.navlinks a.current{background:#edf4ff;color:var(--blue)}
+.main{padding:16px 0 55px}.app-page{display:none;animation:fade .2s}.app-page.active{display:block}@keyframes fade{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}
+.hero{background:linear-gradient(120deg,#edf5ff,#f7faff 55%,#eff9f4);border:1px solid #e3edfa;border-radius:25px;padding:40px 34px;margin:12px 0 22px;position:relative;overflow:hidden}.eyebrow{display:inline-block;background:#e2efff;color:#3672d6;border-radius:30px;padding:6px 13px;font-size:12px;font-weight:800;margin-bottom:12px}.hero h1{font-size:clamp(29px,5vw,47px);line-height:1.35;margin:0 0 8px;color:#243b5a}.hero h1 span{color:var(--blue)}.hero p{color:#6e7d92;max-width:650px;margin:0 0 17px}.search{display:flex;gap:8px;max-width:700px}.search input{flex:1;min-width:0;border:1px solid #e2e9f2;border-radius:13px;background:#fff;padding:13px 15px;outline-color:#9dbdf3}.home-actions,.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.btn{border:0;background:var(--blue);color:#fff;border-radius:12px;padding:10px 16px;font-weight:750;cursor:pointer;box-shadow:0 5px 12px #3978e81f}.btn:hover{filter:brightness(.96)}.btn.secondary{background:#eaf2ff;color:#2d68c7;box-shadow:none}.btn.green{background:var(--green)}.btn.red{background:var(--red)}.btn.light{background:#f1f4f8;color:#4c5b70;box-shadow:none}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 24px}.stat,.panel,.tool,.service,.info,.setting-card,.home-feature,.project-card,.message-card{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.stat{text-align:center;padding:15px}.stat b{display:block;font-size:23px;color:var(--blue)}.stat:nth-child(1) b{color:var(--green)}.stat:nth-child(3) b{color:var(--red)}.stat small{color:var(--muted)}
+.home-feature{padding:22px 25px;display:flex;align-items:center;justify-content:space-between;gap:15px}.home-feature h2{margin:0 0 4px;color:#2c405d}.home-feature p{margin:0;color:var(--muted)}
+.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 14px}.sectionhead h2{font-size:22px;margin:0;color:#263b59}.muted{color:var(--muted);font-size:13px}.notice{background:#f1f7ff;border:1px solid #dceaff;color:#45658f;padding:12px;border-radius:12px;font-size:13px;margin:15px 0}
+.categories{display:flex;gap:8px;overflow-x:auto;padding:5px 0 14px}.chip{white-space:nowrap;border:1px solid var(--line);background:#fff;border-radius:30px;padding:8px 15px;cursor:pointer;color:#59677b}.chip.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.tool{padding:16px;min-height:150px;cursor:pointer;transition:.18s}.tool:hover{transform:translateY(-3px);border-color:#bfd4fa;box-shadow:0 12px 28px #3978e81a}.ico,.project-icon{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:#edf4ff;color:var(--blue);font-size:21px;margin-bottom:9px}.tool:nth-child(3n+2) .ico{background:#e9f8f1;color:var(--green)}.tool:nth-child(3n) .ico{background:#fff0f1;color:var(--red)}.tool h3{font-size:15px;margin:0 0 4px;color:#2b3d55}.tool p{font-size:12px;color:var(--muted);margin:0}.tag,.project-status{display:inline-block;font-size:10px;background:#eaf7f2;color:#18845f;border-radius:20px;padding:3px 9px;margin-top:8px}
+.panel{display:none;padding:20px;margin-top:18px}.panel.show{display:block}.field{margin:12px 0}.field label{display:block;font-weight:750;font-size:13px;margin-bottom:5px}.field input,.field textarea,.field select,input[type=file]{width:100%;padding:11px 12px;border:1px solid #e1e8f1;border-radius:11px;background:#fff;color:#26364b;outline-color:#9dbdf3}.field textarea{min-height:105px;resize:vertical}.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.result{background:#f2f7ff;border:1px solid #dbe8ff;padding:12px;border-radius:10px;margin-top:12px;white-space:pre-wrap;overflow-wrap:anywhere}.result:empty{display:none}
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.service{padding:19px}.service h3{margin:0 0 5px;color:#2b3d55}.price{color:var(--green);font-weight:850}.page-banner{padding:22px 24px;border-radius:20px;background:linear-gradient(110deg,#edf4ff,#eff9f4);border:1px solid #e2edf1;margin:8px 0 22px}.page-banner h1{margin:0 0 4px;color:#203b56}.page-banner p{margin:0;color:#6c7f91}
+.project-grid,.message-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.project-card,.message-card{padding:19px}.project-icon{width:48px;height:48px}.project-card:nth-child(3n+2) .project-icon{background:#e9f8f1;color:var(--green)}.project-card:nth-child(3n) .project-icon{background:#fff0f1;color:var(--red)}.project-card h3,.message-card h3{margin:0 0 5px}.project-card p,.message-card p{font-size:13px;color:var(--muted)}.project-card .btn{margin-top:12px}
+.info{padding:20px;line-height:2}.message-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:15px}.message-card .field input,.message-card .field textarea{background:#fbfdff}
+.settings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.setting-card{padding:19px}.setting-card h3{margin:0 0 6px;color:#2c405d}.setting-card p{font-size:13px;color:var(--muted)}.color-options{display:flex;gap:12px;flex-wrap:wrap}.color-dot{width:35px;height:35px;border-radius:50%;border:3px solid white;box-shadow:0 0 0 1px #dce5ec;cursor:pointer}.color-dot.active{box-shadow:0 0 0 3px #b7d7f3}
+.footer{background:#fff;border-top:1px solid var(--line);padding:30px 0;color:#68778d}.footergrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:20px}.footer h3{color:#2c405d;margin-top:0}.footer a{display:block;margin:5px 0;font-size:14px}.footer a:hover{color:var(--blue)}
+.modalback{position:fixed;inset:0;background:#071426aa;display:none;align-items:center;justify-content:center;padding:15px;z-index:30}.modalback.show{display:flex}.modal{background:#fff;border-radius:18px;max-width:650px;width:100%;max-height:90vh;overflow:auto;padding:20px;box-shadow:0 25px 80px #1b345322}.modalhead{display:flex;justify-content:space-between;align-items:center}.x{border:0;background:#edf1f6;border-radius:8px;padding:5px 11px;font-size:20px;cursor:pointer}
+.hide{display:none!important}
+:root[data-theme="soft"]{--bg:#f3f8f5;--blue:#478d7a;--green:#239b70}:root[data-theme="soft"] .hero{background:linear-gradient(120deg,#e9f5ef,#f8fbf9)}
+:root[data-theme="dark"]{--bg:#172235;--card:#202f45;--text:#edf3fb;--muted:#a9b7ca;--line:#34465e;--shadow:0 8px 26px #0002}:root[data-theme="dark"] body,:root[data-theme="dark"] .top,:root[data-theme="dark"] .footer,:root[data-theme="dark"] .setting-card,:root[data-theme="dark"] .home-feature,:root[data-theme="dark"] .project-card,:root[data-theme="dark"] .message-card,:root[data-theme="dark"] .service,:root[data-theme="dark"] .tool,:root[data-theme="dark"] .panel,:root[data-theme="dark"] .info{background:#202f45;color:#edf3fb}:root[data-theme="dark"] .brand,:root[data-theme="dark"] .sectionhead h2,:root[data-theme="dark"] .tool h3,:root[data-theme="dark"] .service h3,:root[data-theme="dark"] .home-feature h2,:root[data-theme="dark"] .setting-card h3,:root[data-theme="dark"] .footer h3,:root[data-theme="dark"] .project-card h3,:root[data-theme="dark"] .message-card h3{color:#edf3fb}:root[data-theme="dark"] .hero,:root[data-theme="dark"] .page-banner{background:#263b56;border-color:#3b506b}:root[data-theme="dark"] .hero h1,:root[data-theme="dark"] .page-banner h1{color:#fff}:root[data-theme="dark"] .hero p,:root[data-theme="dark"] .page-banner p{color:#c1cee0}:root[data-theme="dark"] input,:root[data-theme="dark"] textarea,:root[data-theme="dark"] select,:root[data-theme="dark"] .chip{background:#172235;color:#edf3fb;border-color:#40536d}:root[data-theme="dark"] .modal{background:#202f45;color:#edf3fb}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.project-grid,.message-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.settings-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.nav{align-items:flex-start;flex-direction:column;padding:10px 0;gap:3px}.navlinks{width:100%;overflow-x:auto;flex-wrap:nowrap}.navlinks a{font-size:12px;padding:8px 10px}.hero{padding:25px 18px;border-radius:19px}.hero h1{font-size:30px}.search{flex-direction:column}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.tool{padding:12px;min-height:145px}.stats{gap:7px}.stat{padding:10px}.stat b{font-size:18px}.services,.project-grid,.message-grid,.settings-grid,.message-layout,.row{grid-template-columns:1fr}.home-feature{align-items:flex-start;flex-direction:column}.footergrid{grid-template-columns:1fr}.page-banner{padding:18px}}
+
+/* ANJAZ REDESIGN — calm editorial utility workspace */
+:root{
+ --bg:#f5f6f4;--card:#ffffff;--text:#202c36;--muted:#71808a;
+ --line:#e5e9e6;--blue:#28766f;--green:#28766f;--red:#b47b4c;
+ --navy:#203b3a;--shadow:0 10px 30px rgba(32,59,58,.055);--base-font:16px;
+}
+body{background:var(--bg);color:var(--text);letter-spacing:0}
+.top{background:rgba(255,255,255,.96);border-bottom:1px solid #e7ebe8;box-shadow:0 4px 18px rgba(30,55,50,.035);backdrop-filter:blur(12px)}
+.nav{min-height:78px}
+.brand{font-size:29px;color:#203b3a;letter-spacing:-1px}
+.brand span{color:#c29a62}
+.navlinks{gap:4px}
+.navlinks a{font-size:13px;color:#64716f;padding:9px 12px;border-radius:9px}
+.navlinks a:hover,.navlinks a.current{background:#edf3f0;color:#286b64}
+.main{padding-top:25px;padding-bottom:70px}
+.hero{background:linear-gradient(115deg,#eaf1ed 0%,#f5f6f1 55%,#f1eee7 100%);border:1px solid #e1e9e3;border-radius:26px;padding:54px 46px;margin:8px 0 26px;box-shadow:0 12px 35px rgba(34,70,60,.045)}
+.eyebrow{background:#dce9e2;color:#32685d;padding:7px 14px;letter-spacing:.2px}
+.hero h1{color:#203b3a;font-size:clamp(32px,5vw,49px);letter-spacing:-1.1px}
+.hero h1 span{color:#28766f}
+.hero p{color:#64736e;font-size:16px;line-height:1.9}
+.search{max-width:740px;margin-top:22px}
+.search input{border:1px solid #dce5df;border-radius:13px;padding:15px 17px;box-shadow:0 3px 12px rgba(30,60,50,.035)}
+.btn{background:#28766f;border-radius:11px;padding:11px 18px;box-shadow:none;font-size:14px}
+.btn:hover{background:#205f59;filter:none}
+.btn.secondary{background:#eaf1ed;color:#286b64}
+.btn.green{background:#28766f;color:white}
+.btn.red{background:#f3ebe4;color:#875a39}
+.btn.light{background:#f0f2ef;color:#596762}
+.stats{gap:14px;margin:18px 0 27px}
+.stat{padding:18px;border-radius:15px;box-shadow:none;border-color:#e6ebe7}
+.stat b,.stat:nth-child(1) b,.stat:nth-child(3) b{color:#28766f;font-size:25px}
+.stat small{color:#78857f}
+.home-feature{padding:24px 27px;border-radius:17px;box-shadow:none}
+.home-feature h2,.sectionhead h2{color:#243b38}
+.sectionhead{margin:30px 0 16px}
+.sectionhead h2{font-size:21px;font-weight:800}
+.project-grid,.message-grid,.services,.settings-grid{gap:16px}
+.project-card,.message-card,.service,.setting-card,.info{border-radius:16px;box-shadow:0 5px 22px rgba(32,59,58,.035);border-color:#e6ebe7}
+.project-card,.message-card,.service,.setting-card{padding:21px}
+.project-icon,.ico{background:#edf3ef;color:#28766f;border-radius:12px}
+.project-card:nth-child(3n+2) .project-icon,.project-card:nth-child(3n) .project-icon,
+.tool:nth-child(3n+2) .ico,.tool:nth-child(3n) .ico{background:#edf3ef;color:#28766f}
+.tool{padding:18px;min-height:160px;border-radius:15px;box-shadow:0 4px 18px rgba(32,59,58,.035);border-color:#e6ebe7;transition:transform .18s,border-color .18s,box-shadow .18s}
+.tool:hover{transform:translateY(-3px);border-color:#b8d0c5;box-shadow:0 13px 28px rgba(32,80,65,.09)}
+.tool h3{font-size:15px;color:#263a36;margin-bottom:6px}
+.tool p{font-size:12px;line-height:1.7;color:#7a8781}
+.tag{background:#edf3ef;color:#39766b}
+.categories{gap:9px;padding:8px 0 17px}
+.chip{border-color:#e1e8e3;background:#fff;color:#68756f;padding:9px 16px;border-radius:10px;font-size:13px}
+.chip.active{background:#28766f;border-color:#28766f;color:#fff}
+.field input,.field textarea,.field select,input[type=file]{border:1px solid #dfe6e1;border-radius:11px;padding:12px 13px}
+.field label{color:#354a44}
+.panel{border-radius:17px;border-color:#e1e8e3;box-shadow:0 8px 25px rgba(32,59,58,.04);padding:24px}
+.result{background:#eff5f1;border-color:#dce9e0;color:#29483e;border-radius:12px}
+.page-banner{background:linear-gradient(110deg,#eaf1ed,#f3f2ec);border:1px solid #e1e9e3;border-radius:20px;padding:28px 30px;margin:8px 0 24px}
+.page-banner h1{color:#203b3a;font-size:29px}
+.page-banner p{color:#687771}
+.price{color:#28766f}
+.notice{background:#eef4f0;border-color:#dce8df;color:#526c61;border-radius:12px}
+.footer{background:#fff;border-top:1px solid #e5eae6;padding:36px 0;color:#738079}
+.footer h3{color:#203b3a}
+.modal{border-radius:18px}
+.color-dot{border:0}
+.color-dot.active{box-shadow:0 0 0 3px #c5d9ce}
+@media(min-width:1000px){
+ .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+ .tool{min-height:166px}
+ .hero{padding:58px 54px}
+}
+@media(max-width:900px){
+ .nav{min-height:68px}
+ .navlinks a{padding:8px 9px}
+ .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:650px){
+ .main{padding-top:12px}
+ .nav{gap:8px;padding:10px 0}
+ .brand{font-size:26px}
+ .navlinks{padding-bottom:3px;scrollbar-width:none}
+ .navlinks::-webkit-scrollbar,.categories::-webkit-scrollbar{display:none}
+ .navlinks a{font-size:12px;padding:8px 11px;background:#f6f8f6}
+ .hero{padding:29px 19px;border-radius:19px;margin-top:4px}
+ .hero h1{font-size:31px;line-height:1.4}
+ .hero p{font-size:14px}
+ .home-actions{gap:8px}
+ .home-actions .btn{flex:1 1 auto}
+ .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+ .stat{padding:12px 7px}
+ .stat b,.stat:nth-child(1) b,.stat:nth-child(3) b{font-size:20px}
+ .stat small{font-size:11px}
+ .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .tool{padding:13px;min-height:150px}
+ .tool h3{font-size:13px}
+ .tool p{font-size:11px}
+ .ico{width:39px;height:39px}
+ .sectionhead{align-items:center;margin:23px 0 12px}
+ .sectionhead h2{font-size:18px}
+ .page-banner{padding:21px 18px}
+ .page-banner h1{font-size:24px}
+ .panel{padding:16px}
+ .project-grid,.message-grid,.services,.settings-grid,.message-layout,.row{grid-template-columns:1fr}
+ .footergrid{gap:12px}
+}
+:root[data-theme="soft"]{--bg:#f5f6f4;--blue:#28766f;--green:#28766f}
+:root[data-theme="soft"] .hero{background:linear-gradient(115deg,#eaf1ed,#f5f6f1 55%,#f1eee7)}
+:root[data-theme="dark"]{--bg:#172522;--card:#21332e;--text:#edf3ef;--muted:#aabbb2;--line:#344b43;--blue:#79b8a7;--green:#79b8a7;--navy:#dce9e2;--shadow:0 8px 26px #0002}
+:root[data-theme="dark"] body,:root[data-theme="dark"] .top,:root[data-theme="dark"] .footer,:root[data-theme="dark"] .setting-card,:root[data-theme="dark"] .home-feature,:root[data-theme="dark"] .project-card,:root[data-theme="dark"] .message-card,:root[data-theme="dark"] .service,:root[data-theme="dark"] .tool,:root[data-theme="dark"] .panel,:root[data-theme="dark"] .info{background:#21332e;color:#edf3ef}
+:root[data-theme="dark"] .brand,:root[data-theme="dark"] .sectionhead h2,:root[data-theme="dark"] .tool h3,:root[data-theme="dark"] .service h3,:root[data-theme="dark"] .home-feature h2,:root[data-theme="dark"] .setting-card h3,:root[data-theme="dark"] .footer h3,:root[data-theme="dark"] .project-card h3,:root[data-theme="dark"] .message-card h3{color:#edf3ef}
+:root[data-theme="dark"] .hero,:root[data-theme="dark"] .page-banner{background:#2a4039;border-color:#40584e}
+:root[data-theme="dark"] .hero h1,:root[data-theme="dark"] .page-banner h1{color:#fff}
+:root[data-theme="dark"] .hero p,:root[data-theme="dark"] .page-banner p{color:#c4d4cc}
+:root[data-theme="dark"] input,:root[data-theme="dark"] textarea,:root[data-theme="dark"] select,:root[data-theme="dark"] .chip{background:#172522;color:#edf3ef;border-color:#40584e}
+:root[data-theme="dark"] .modal{background:#21332e;color:#edf3ef}
+
+
+/* ANJAZ V3 — clearer navigation, calmer palette, and usable controls */
+:root{--bg:#f7f6f3;--card:#fff;--text:#292833;--muted:#777582;--line:#e9e7e3;--blue:#7566d9;--green:#7566d9;--red:#b58a70;--navy:#292833;--accent:#7566d9;--accent-soft:#efedff;--accent-line:#e7e3fb;--shadow:0 8px 25px rgba(48,42,75,.055)}
+body{background:#f7f6f3;color:#292833}
+.top{background:rgba(255,255,255,.97);border-bottom:1px solid #e9e7e3;box-shadow:0 3px 15px rgba(45,40,65,.035)}
+.brand{color:#292833}.brand span{color:var(--accent)}
+.navlinks a{color:#696775}.navlinks a:hover,.navlinks a.current{background:var(--accent-soft);color:var(--accent)}
+.hero{background:linear-gradient(120deg,#f0eefb 0%,#f8f7f4 58%,#f5eee9 100%);border-color:#e9e5f2;box-shadow:0 12px 30px rgba(48,42,75,.04)}
+.eyebrow{background:#e7e3fa;color:#6154bb}.hero h1,.sectionhead h2,.home-feature h2,.page-banner h1{color:#292833}.hero h1 span{color:var(--accent)}.hero p{color:#73717e}
+.btn{background:var(--accent);box-shadow:none;border-radius:11px}.btn:hover{filter:brightness(.95)}.btn.secondary{background:var(--accent-soft);color:var(--accent)}.btn.green{background:var(--accent)}.btn.red{background:#f3eae5;color:#8b6047}.btn.light{background:#f0efed;color:#5d5a65}
+.search input,.field input,.field textarea,.field select,input[type=file]{border:1px solid #e4e1e9;border-radius:11px;background:#fff}
+.stat,.panel,.tool,.service,.info,.setting-card,.home-feature,.project-card,.message-card{border-color:#eae8e5;box-shadow:0 5px 20px rgba(45,40,65,.035);border-radius:16px}
+.stat b,.stat:nth-child(1) b,.stat:nth-child(3) b{color:var(--accent)}
+.tool:hover{border-color:#c9c2ef;box-shadow:0 12px 26px rgba(83,72,160,.10)}
+.ico,.project-icon{background:var(--accent-soft);color:var(--accent)}.tool:nth-child(3n+2) .ico,.tool:nth-child(3n) .ico{background:var(--accent-soft);color:var(--accent)}
+.tag,.project-status{background:#f0eefb;color:#6257ad}.chip{border-color:#e8e5e2;color:#66636e}.chip.active{background:var(--accent);border-color:var(--accent)}
+.page-banner{background:linear-gradient(110deg,#f0eefb,#f6f2ed);border:1px solid #e9e5f2;border-radius:19px}.page-banner p{color:#777482}
+.notice,.result{background:#f1effb;border-color:#e2def6;color:#4d4778;border-radius:12px}
+.price{color:var(--accent)}.footer{background:#fff;border-top:1px solid #e9e7e3}
+.palette-options{display:flex;flex-wrap:wrap;gap:9px;margin:12px 0}.palette-choice{display:flex;align-items:center;gap:8px;background:#faf9f7;border:1px solid #e9e7e3;padding:9px 12px;border-radius:10px;color:#514e59;cursor:pointer}.palette-choice i{width:17px;height:17px;border-radius:50%;display:block}.palette-choice.active{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.tool-nav-actions{display:flex;gap:8px;flex-wrap:wrap}.tool-nav-actions .btn{font-size:12px;padding:8px 12px}
+.quick-nav{display:none}
+@media(max-width:760px){body{padding-bottom:72px}.quick-nav{position:fixed;z-index:50;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;padding:7px 6px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid #e6e3e9;box-shadow:0 -5px 20px rgba(40,35,60,.07);backdrop-filter:blur(12px)}.quick-nav button{border:0;background:transparent;color:#716e7b;font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:2px;padding:3px 0;cursor:pointer}.quick-nav button span{font-size:20px;line-height:1.2;color:var(--accent)}.quick-nav button:active{background:var(--accent-soft);border-radius:9px}.navlinks{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a{flex:0 0 auto}.hero{padding:26px 18px}.hero h1{font-size:29px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.tool{min-height:145px}.tool-nav-actions{width:100%}.tool-nav-actions .btn{flex:1}.settings-grid{grid-template-columns:1fr}}
+@media(min-width:761px){.quick-nav{display:none}}
+:root[data-density="compact"] .grid{gap:8px}:root[data-density="compact"] .tool{min-height:125px;padding:12px}:root[data-density="compact"] .tool p{font-size:11px}
+:root[data-theme="dark"]{--bg:#201f28;--card:#2b2935;--text:#f4f1f8;--muted:#b5b0bf;--line:#464251;--shadow:0 8px 25px #0003}
+:root[data-theme="dark"] body,:root[data-theme="dark"] .top,:root[data-theme="dark"] .footer,:root[data-theme="dark"] .stat,:root[data-theme="dark"] .panel,:root[data-theme="dark"] .tool,:root[data-theme="dark"] .service,:root[data-theme="dark"] .info,:root[data-theme="dark"] .setting-card,:root[data-theme="dark"] .home-feature,:root[data-theme="dark"] .project-card,:root[data-theme="dark"] .message-card{background:#2b2935;color:#f4f1f8;border-color:#464251}
+:root[data-theme="dark"] .hero,:root[data-theme="dark"] .page-banner{background:#353142;border-color:#4b455c}:root[data-theme="dark"] .hero h1,:root[data-theme="dark"] .page-banner h1,:root[data-theme="dark"] .sectionhead h2,:root[data-theme="dark"] .tool h3,:root[data-theme="dark"] .brand{color:#f4f1f8}:root[data-theme="dark"] .hero p,:root[data-theme="dark"] .page-banner p{color:#cbc5d5}
+:root[data-theme="dark"] input,:root[data-theme="dark"] textarea,:root[data-theme="dark"] select{background:#201f28;color:#f4f1f8;border-color:#504a5d}:root[data-theme="dark"] .quick-nav{background:rgba(43,41,53,.97);border-color:#464251}:root[data-theme="dark"] .quick-nav button{color:#d0cad8}
+
+</style>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><nav class="nav">
+<a class="brand" href="#home" onclick="showPage('home');return false">أنجز<span>.</span></a>
+<div class="navlinks">
+<a href="#home" onclick="showPage('home');return false">الرئيسية</a><a href="#tools" onclick="showPage('tools');return false">الأدوات</a><a href="#projects" onclick="showPage('projects');return false">المشاريع</a><a href="#services" onclick="showPage('services');return false">الخدمات</a><a href="#messages" onclick="showPage('messages');return false">الرسائل</a><a href="#about" onclick="showPage('about');return false">من نحن</a><a href="#legal" onclick="showPage('legal');return false">السياسات والشروط</a><a href="#settings" onclick="showPage('settings');return false">الإعدادات</a>
+</div></nav></div></header>
+<main class="main wrap">
+<section id="home" class="app-page active">
+<div class="hero"><div class="eyebrow">منصة أدوات رقمية سهلة وسريعة</div><h1>أنجز شغلك… <span>من مكان واحد</span></h1><p>أدوات مجانية للملفات والصور والحسابات والنصوص والمستندات، وخدمات إضافية تنفذها لك عند الحاجة.</p>
+<div class="search"><input id="homeSearch" placeholder="ابحث عن أداة تحتاجها..." oninput="syncHomeSearch(this.value)"><button class="btn" onclick="openToolsFromHome()">اكتشف الأدوات</button></div>
+<div class="home-actions"><button class="btn" onclick="showPage('tools')">تصفح 50 أداة</button><button class="btn secondary" onclick="showPage('services')">اطلب خدمة</button><button class="btn green" onclick="showPage('projects')">شاهد المشاريع</button></div></div>
+<div class="stats"><div class="stat"><b>50</b><small>أداة مجانية</small></div><div class="stat"><b>5</b><small>أقسام متنوعة</small></div><div class="stat"><b>24/7</b><small>متاح في أي وقت</small></div></div>
+<div class="home-feature"><div><h2>كل ما تحتاجه لإنجاز أسرع</h2><p>استخدم الأدوات مباشرة دون إنشاء حساب، واطلب مساعدة إضافية عند الحاجة.</p></div><button class="btn" onclick="showPage('tools')">ابدأ الآن</button></div>
+<div class="sectionhead"><h2>استكشف مشاريع أنجز</h2><button class="btn secondary" onclick="showPage('projects')">عرض كل المشاريع</button></div>
+<div class="project-grid">
+<article class="project-card"><div class="project-icon">▤</div><h3>مركز الملفات</h3><p>أدوات تجهيز وتحويل ملفات PDF.</p><button class="btn secondary" onclick="filterProject('PDF والملفات')">استكشف</button></article>
+<article class="project-card"><div class="project-icon">▧</div><h3>استوديو الصور</h3><p>تعديل الصور وضغطها وتحويل صيغها.</p><button class="btn secondary" onclick="filterProject('الصور')">استكشف</button></article>
+<article class="project-card"><div class="project-icon">∑</div><h3>الحاسبات الذكية</h3><p>حسابات يومية سريعة ومفيدة.</p><button class="btn secondary" onclick="filterProject('الحاسبات')">استكشف</button></article>
+</div>
+</section>
+
+<section id="tools" class="app-page">
+<div class="stats"><div class="stat"><b>50</b><small>أداة مجانية</small></div><div class="stat"><b>5</b><small>أقسام متنوعة</small></div><div class="stat"><b>24/7</b><small>متاح في أي وقت</small></div></div>
+<div class="notice">الخصوصية أولًا: تتم معالجة معظم الملفات داخل متصفحك ولا يتم رفعها إلى قاعدة بيانات. بعض الأدوات تحتاج اتصالًا بالإنترنت لتحميل المكتبات. احتفظ دائمًا بنسخة من ملفاتك الأصلية.</div>
+<div class="sectionhead"><h2>الأدوات المجانية</h2><span class="muted" id="count">50 أداة</span></div>
+<div class="field"><input id="search" placeholder="ابحث باسم الأداة أو وصفها..." oninput="renderTools()"></div>
+<div class="categories" id="categories"></div><div class="grid" id="toolGrid"></div>
+<div class="panel" id="toolPanel"><div class="sectionhead"><div><h2 id="toolTitle"></h2><div class="muted" id="toolDesc"></div></div><div class="tool-nav-actions"><button class="btn light" onclick="closeTool()">كل الأدوات</button><button class="btn secondary" onclick="showPage('services')">الخدمات</button><button class="btn secondary" onclick="showPage('settings')">الإعدادات</button></div></div><div id="toolForm"></div><div class="result" id="toolResult"></div></div>
+</section>
+
+<section id="projects" class="app-page">
+<div class="page-banner"><h1>مشاريع أنجز</h1><p>مشاريع وأقسام رقمية تجمع الأدوات في مكان منظم، ويمكنك الدخول إلى أدوات كل مشروع مباشرة.</p></div>
+<div class="project-grid">
+<article class="project-card"><div class="project-icon">▤</div><h3>مركز الملفات</h3><p>مجموعة أدوات لدمج وتقسيم وضغط وتجهيز ملفات PDF والمستندات.</p><span class="project-status">متاح للاستخدام</span><br><button class="btn secondary" onclick="filterProject('PDF والملفات')">افتح المشروع</button></article>
+<article class="project-card"><div class="project-icon">▧</div><h3>استوديو الصور</h3><p>أدوات لتغيير أبعاد الصور وضغطها وتحويل صيغها وتجهيزها.</p><span class="project-status">متاح للاستخدام</span><br><button class="btn secondary" onclick="filterProject('الصور')">افتح المشروع</button></article>
+<article class="project-card"><div class="project-icon">∑</div><h3>الحاسبات الذكية</h3><p>حسابات يومية للراتب والخصومات والأقساط والتواريخ والمساحات.</p><span class="project-status">متاح للاستخدام</span><br><button class="btn secondary" onclick="filterProject('الحاسبات')">افتح المشروع</button></article>
+<article class="project-card"><div class="project-icon">T</div><h3>معمل النصوص</h3><p>تنظيف النصوص ومقارنتها وترتيبها واستخراج البيانات منها.</p><span class="project-status">متاح للاستخدام</span><br><button class="btn secondary" onclick="filterProject('النصوص')">افتح المشروع</button></article>
+<article class="project-card"><div class="project-icon">▣</div><h3>منشئ المستندات</h3><p>إنشاء نماذج وسيرة ذاتية وجداول قابلة للطباعة.</p><span class="project-status">متاح للاستخدام</span><br><button class="btn secondary" onclick="filterProject('المستندات والإنتاجية')">افتح المشروع</button></article>
+<article class="project-card"><div class="project-icon">✉</div><h3>طلبات العملاء</h3><p>تواصل مباشر لطلب خدمات تنسيق وتجهيز الملفات والمستندات.</p><span class="project-status">استقبال الطلبات عبر واتساب</span><br><button class="btn green" onclick="showPage('messages')">إرسال رسالة</button></article>
+</div></section>
+
+<section id="services" class="app-page"><div class="page-banner"><h1>الخدمات المدفوعة</h1><p>خدمات اختيارية تنفذ حسب تفاصيل الطلب، والسعر النهائي يتم تأكيده قبل التنفيذ.</p></div><div class="services" id="serviceGrid"></div></section>
+<section id="about" class="app-page"><div class="page-banner"><h1>عن أنجز</h1><p>منصة أدوات رقمية بسيطة ومباشرة.</p></div><div class="info"><p>أنجز منصة أدوات رقمية تساعدك على تنفيذ مهام الملفات والصور والحسابات والنصوص والمستندات بسهولة. هدفنا توفير أدوات واضحة وسهلة الاستخدام مع توضيح طريقة عمل كل أداة وحدودها.</p><p>الأدوات الأساسية لا تتطلب إنشاء حساب. تتم معالجة الملفات محليًا داخل المتصفح في الأدوات التي تدعم ذلك، ولا توجد قاعدة بيانات أو حسابات مستخدمين في هذه النسخة.</p></div></section>
+
+<section id="messages" class="app-page"><div class="page-banner"><h1>مركز الرسائل والدعم</h1><p>اكتب استفسارك أو تفاصيل الخدمة، وسيتم فتح رسالة واتساب جاهزة للإرسال.</p></div><div class="message-layout">
+<div class="message-card"><h3>إرسال رسالة جديدة</h3><p>املأ البيانات ثم اضغط إرسال عبر واتساب.</p><div class="field"><label>الاسم</label><input id="msgName" placeholder="اسمك"></div><div class="field"><label>نوع الرسالة</label><select id="msgType"><option>استفسار عام</option><option>طلب خدمة مدفوعة</option><option>مشكلة في أداة</option><option>اقتراح تطوير</option><option>شكوى</option></select></div><div class="field"><label>عنوان الرسالة</label><input id="msgSubject" placeholder="اكتب عنوانًا مختصرًا"></div><div class="field"><label>تفاصيل الرسالة</label><textarea id="msgBody" placeholder="اكتب رسالتك بالتفصيل"></textarea></div><button class="btn green" onclick="sendSiteMessage()">إرسال الرسالة عبر واتساب</button></div>
+<div class="message-card"><div class="project-icon">✆</div><h3>تواصل مباشر</h3><p>يمكنك التواصل لطلب المساعدة أو الاستفسار عن الخدمات.</p><a class="btn" id="contactWhats" href="#" target="_blank" rel="noopener">فتح واتساب</a><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><h3>قبل الإرسال</h3><p>لا ترسل كلمات مرور أو بيانات بنكية أو معلومات شديدة الخصوصية. لا يتم حفظ الرسائل داخل الموقع؛ يتم إرسالها من خلال واتساب بعد موافقتك.</p></div></div></section>
+
+<section id="legal" class="app-page"><div class="page-banner"><h1>السياسات والشروط</h1><p>معلومات واضحة عن الخصوصية وطريقة استخدام منصة أنجز.</p></div><div class="info"><h2>سياسة الخصوصية</h2><p>تعمل الأدوات داخل متصفح المستخدم قدر الإمكان. لا يطلب الموقع بيانات شخصية لاستخدام الأدوات الأساسية. عند التواصل لطلب خدمة، يختار المستخدم بنفسه المعلومات والملفات التي يرسلها عبر وسيلة التواصل الخارجية.</p><p>قد يستخدم الموقع خدمات إعلانية مثل Google AdSense بعد تفعيلها وقبول الموقع، وقد تستخدم هذه الخدمات ملفات تعريف الارتباط وفق سياساتها. يجب تحديث هذه السياسة لتتوافق مع الخدمات التي يتم تفعيلها فعليًا.</p><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><h2>شروط الاستخدام</h2><p>تُقدم الأدوات كما هي لأغراض المساعدة العامة. يجب مراجعة النتائج قبل الاعتماد عليها، خصوصًا الحسابات والمستندات المهمة. المستخدم مسؤول عن امتلاك حق استخدام الملفات التي يعالجها. لا تستخدم الموقع لأي نشاط مخالف للقانون أو حقوق الآخرين.</p></div></section>
+
+<section id="settings" class="app-page"><div class="page-banner"><h1>الإعدادات والتخصيص</h1><p>خصص ألوان الموقع وحجم الخط وطريقة العرض على جهازك.</p></div><div class="settings-grid">
+<div class="setting-card"><h3>نظام العرض</h3><p>اختر الوضع المناسب لك.</p><div class="field"><label>المظهر</label><select id="themeChoice" onchange="applyTheme(this.value)"><option value="light">فاتح</option><option value="soft">فاتح هادئ</option><option value="dark">داكن</option></select></div></div>
+<div class="setting-card"><h3>ألوان الموقع</h3><p>اختار هوية لونية واحدة متناسقة.</p><div class="palette-options"><button class="palette-choice" onclick="setPalette('violet')"><i style="background:#7566d9"></i><span>لافندر هادئ</span></button><button class="palette-choice" onclick="setPalette('ocean')"><i style="background:#397d86"></i><span>أزرق بحري</span></button><button class="palette-choice" onclick="setPalette('earth')"><i style="background:#a66f4f"></i><span>ترابي دافئ</span></button></div><div class="muted">يتم حفظ اختيارك على نفس الجهاز.</div></div>
+<div class="setting-card"><h3>حجم الخط</h3><p>تحكم في حجم النصوص داخل الموقع.</p><div class="field"><label>حجم الخط</label><select id="fontChoice" onchange="applyFont(this.value)"><option value="15px">صغير</option><option value="16px" selected>متوسط</option><option value="18px">كبير</option><option value="20px">كبير جدًا</option></select></div></div>
+<div class="setting-card"><h3>طريقة عرض الأدوات</h3><p>اختار شكل البطاقات المناسب لشاشتك.</p><div class="field"><label>كثافة العرض</label><select id="densityChoice" onchange="applyDensity(this.value)"><option value="comfortable">مسافات مريحة</option><option value="compact">بطاقات مضغوطة</option></select></div></div>
+<div class="setting-card"><h3>الخصوصية</h3><p>الأدوات الأساسية لا تحتاج حسابًا. لا يتم تخزين رسائل التواصل داخل الموقع.</p><button class="btn secondary" onclick="showPage('legal')">قراءة سياسة الخصوصية</button></div>
+<div class="setting-card"><h3>المساعدة</h3><p>واجهت مشكلة أو عندك اقتراح؟ أرسل رسالة.</p><button class="btn green" onclick="showPage('messages')">مركز الرسائل</button></div>
+<div class="setting-card"><h3>استعادة الإعدادات</h3><p>إرجاع الألوان وحجم الخط إلى الوضع الافتراضي.</p><button class="btn red" onclick="resetSettings()">استعادة الافتراضي</button></div>
+</div></section>
+</main>
+
+<footer class="footer"><div class="wrap footergrid"><div><h3>أنجز</h3><p>أدوات مجانية تساعدك تنجز شغلك اليومي بسهولة.</p></div><div><h3>روابط</h3><a href="#tools" onclick="showPage('tools');return false">الأدوات</a><a href="#services" onclick="showPage('services');return false">الخدمات</a><a href="#projects" onclick="showPage('projects');return false">المشاريع</a><a href="#messages" onclick="showPage('messages');return false">الرسائل</a><a href="#about" onclick="showPage('about');return false">من نحن</a></div><div><h3>معلومات</h3><a href="#legal" onclick="showPage('legal');return false">سياسة الخصوصية</a><a href="#legal" onclick="showPage('legal');return false">شروط الاستخدام</a><a href="#messages" onclick="showPage('messages');return false">اتصل بنا</a></div></div><div class="wrap muted" style="margin-top:20px">© <span id="year"></span> أنجز. جميع الحقوق محفوظة.</div></footer>
+
+
+<nav class="quick-nav" aria-label="التنقل السريع">
+ <button onclick="showPage('home')"><span>⌂</span>الرئيسية</button>
+ <button onclick="showPage('tools')"><span>▦</span>الأدوات</button>
+ <button onclick="showPage('services')"><span>✦</span>الخدمات</button>
+ <button onclick="showPage('projects')"><span>▣</span>المشاريع</button>
+ <button onclick="showPage('settings')"><span>⚙</span>الإعدادات</button>
+</nav>
+
+<div class="modalback" id="modal"><div class="modal"><div class="modalhead"><h2 id="modalTitle">طلب خدمة</h2><button class="x" onclick="closeModal()">×</button></div><p id="modalDesc"></p><div class="field"><label>اسمك (اختياري)</label><input id="clientName" placeholder="اكتب اسمك"></div><div class="field"><label>تفاصيل الطلب</label><textarea id="clientDetails" placeholder="اكتب تفاصيل الخدمة المطلوبة"></textarea></div><div class="actions"><button class="btn green" onclick="sendOrder()">إرسال الطلب عبر واتساب</button><button class="btn light" onclick="closeModal();showPage('tools')">الانتقال للأدوات</button><button class="btn light" onclick="closeModal();showPage('settings')">الإعدادات</button></div></div></div>
+
+<script>
+const WHATSAPP_NUMBER="201208485732";
+const cats=["الكل","PDF والملفات","الصور","الحاسبات","النصوص","المستندات والإنتاجية"];
+const tools=[
+[1,"دمج ملفات PDF","PDF والملفات","اجمع عدة ملفات PDF في ملف واحد","filepdf"],[2,"تقسيم PDF","PDF والملفات","استخرج صفحات محددة في ملفات مستقلة","filepdf"],[3,"ضغط PDF","PDF والملفات","تقليل الحجم بتحويل الصفحات إلى صور؛ قد تقل جودة النص","filepdf"],[4,"تحويل الصور إلى PDF","PDF والملفات","اجمع صورك في مستند PDF","filepdf"],[5,"استخراج صفحات PDF","PDF والملفات","حدد أرقام الصفحات المطلوب استخراجها","filepdf"],[6,"تدوير صفحات PDF","PDF والملفات","دوّر صفحات ملف PDF","filepdf"],[7,"حذف صفحات PDF","PDF والملفات","احذف صفحات غير مطلوبة","filepdf"],[8,"إضافة أرقام الصفحات","PDF والملفات","أضف ترقيمًا للصفحات","filepdf"],[9,"إضافة علامة مائية","PDF والملفات","أضف نصًا مائيًا إلى صفحات PDF","filepdf"],[10,"تحويل PDF إلى صور","PDF والملفات","حوّل صفحات PDF إلى صور PNG","filepdf"],
+[11,"ضغط الصور","الصور","قلل حجم الصورة بصيغة JPG","image"],[12,"تغيير أبعاد الصور","الصور","حدد العرض والارتفاع المطلوبين","image"],[13,"قص الصور","الصور","قص الصورة من المنتصف بأبعاد تحددها","image"],[14,"تحويل JPG إلى PNG","الصور","حوّل صورة JPG إلى PNG","image"],[15,"تحويل PNG إلى JPG","الصور","حوّل صورة PNG إلى JPG","image"],[16,"تحويل الصور إلى WebP","الصور","حوّل الصورة إلى صيغة WebP","image"],[17,"تصغير حجم الصورة بالكيلوبايت","الصور","حاول الوصول إلى حجم ملف مستهدف","image"],[18,"خلفية بيضاء للصورة","الصور","أضف خلفية بيضاء للصورة","image"],[19,"تدوير الصور","الصور","دوّر الصورة 90 درجة","image"],[20,"دمج صور في صورة واحدة","الصور","رتب عدة صور في لوحة واحدة","image"],
+[21,"حساب العمر","الحاسبات","احسب عمرك بالسنوات والشهور والأيام","calc"],[22,"حساب الخصم","الحاسبات","احسب السعر بعد الخصم","calc"],[23,"حساب الأقساط","الحاسبات","احسب قيمة القسط الشهري","calc"],[24,"حساب الراتب","الحاسبات","احسب صافي الراتب بعد الخصومات","calc"],[25,"حساب النسبة المئوية","الحاسبات","احسب نسبة رقم من رقم آخر","calc"],[26,"حساب ضريبة القيمة المضافة","الحاسبات","احسب الضريبة والسعر شامل الضريبة","calc"],[27,"حساب فرق التاريخ","الحاسبات","احسب عدد الأيام بين تاريخين","calc"],[28,"حساب استهلاك الكهرباء","الحاسبات","تقدير استهلاك جهاز كهربائي","calc"],[29,"حساب مساحة الغرف","الحاسبات","احسب المساحة بالمتر المربع","calc"],[30,"تقسيم المصروفات","الحاسبات","قسّم الفاتورة بالتساوي بين الأشخاص","calc"],
+[31,"عداد الكلمات والحروف","النصوص","احسب الكلمات والحروف والأسطر","text"],[32,"إزالة المسافات الزائدة","النصوص","نظف المسافات من النص","text"],[33,"تحويل حالة الأحرف","النصوص","حوّل الأحرف الإنجليزية إلى كبيرة أو صغيرة","text"],[34,"ترتيب النص أبجديًا","النصوص","رتب الأسطر تصاعديًا","text"],[35,"حذف الأسطر المكررة","النصوص","احذف السطور المتكررة","text"],[36,"مقارنة نصين","النصوص","اعرض الفروق الأساسية بين نصين","text2"],[37,"استخراج الأرقام","النصوص","استخرج الأرقام الموجودة في النص","text"],[38,"استخراج الإيميلات","النصوص","استخرج عناوين البريد الإلكتروني","text"],[39,"إنشاء نص عشوائي","النصوص","أنشئ نصًا تجريبيًا","random"],[40,"تحويل النص إلى قائمة","النصوص","حوّل كل سطر إلى عنصر قائمة","text"],
+[41,"إنشاء سيرة ذاتية","المستندات والإنتاجية","جهز سيرة ذاتية قابلة للطباعة والحفظ PDF","cv"],[42,"خطاب تقديم لوظيفة","المستندات والإنتاجية","اكتب خطاب تقديم قابلًا للطباعة","cover"],[43,"إنشاء فاتورة","المستندات والإنتاجية","جهز فاتورة بسيطة قابلة للطباعة","invoice"],[44,"جدول مهام للطباعة","المستندات والإنتاجية","أنشئ قائمة مهام قابلة للطباعة","tasks"],[45,"جدول مصروفات شهري","المستندات والإنتاجية","جهز جدولًا لتسجيل المصروفات","budget"],[46,"إنشاء رمز QR","المستندات والإنتاجية","أنشئ رمز QR لرابط أو نص","qr"],[47,"إنشاء كلمة مرور قوية","المستندات والإنتاجية","أنشئ كلمة مرور عشوائية","password"],[48,"توقيع إلكتروني","المستندات والإنتاجية","ارسم توقيعك واحفظه كصورة","signature"],[49,"مؤقت وساعة إيقاف","المستندات والإنتاجية","استخدم مؤقتًا بسيطًا","timer"],[50,"قائمة تسوق للطباعة","المستندات والإنتاجية","أنشئ قائمة مشتريات قابلة للطباعة","shopping"]
+];
+const services=[["تنسيق ملفات Word وPDF","تنظيم وتنسيق المستندات بشكل واضح.","ابتداءً من 50 جنيه"],["تحويل وتجهيز الملفات","تحويل الملفات وتجهيزها للصيغة المطلوبة.","ابتداءً من 30 جنيه"],["تجهيز سيرة ذاتية","تنسيق بياناتك في سيرة ذاتية مرتبة.","ابتداءً من 75 جنيه"],["دمج وترتيب ملفات","ترتيب وتجميع ملفاتك في ملف واحد.","ابتداءً من 30 جنيه"],["تجهيز فاتورة أو جدول","تنسيق مستند بسيط للطباعة.","ابتداءً من 40 جنيه"],["طلب خاص","اشرح المطلوب وسنراجع إمكانية تنفيذه.","حسب الطلب"]];
+let activeCat="الكل",activeTool=null,orderService="",timerInt=null,timerLeft=0,sigCtx=null,sigDown=false;
+const $=id=>document.getElementById(id);
+function renderCats(){$("categories").innerHTML=cats.map(c=>`<button class="chip ${c===activeCat?'active':''}" onclick="activeCat=${JSON.stringify(c)};renderCats();renderTools()">${c}</button>`).join("")}
+function renderTools(){const q=($("search")?.value||"").trim().toLowerCase();const list=tools.filter(t=>(activeCat==="الكل"||t[2]===activeCat)&&(!q||(t[1]+t[2]+t[3]).toLowerCase().includes(q)));$("count").textContent=list.length+" أداة";$("toolGrid").innerHTML=list.map(t=>`<article class="tool" onclick="openTool(${t[0]})"><div class="ico">${t[4]==="image"?"▧":t[4]==="calc"?"∑":t[4]==="text"?"T":t[4]==="filepdf"?"▤":"✦"}</div><h3>${t[1]}</h3><p>${t[3]}</p><span class="tag">مجانية</span></article>`).join("")||"<p>لا توجد نتائج مطابقة.</p>"}
+function renderServices(){$("serviceGrid").innerHTML=services.map((s,i)=>`<article class="service"><h3>${s[0]}</h3><p class="muted">${s[1]}</p><div class="price">${s[2]}</div><button class="btn secondary" style="margin-top:12px" onclick="openOrder(${i})">اطلب الخدمة</button></article>`).join("")}
+function showPage(id){const valid=["home","tools","projects","services","messages","about","legal","settings"];if(!valid.includes(id))id="home";document.querySelectorAll(".app-page").forEach(p=>p.classList.toggle("active",p.id===id));if(id==="tools"){renderCats();renderTools()}history.replaceState(null,"","#"+id);window.scrollTo({top:0,behavior:"smooth"});document.querySelectorAll(".navlinks a").forEach(a=>a.classList.toggle("current",a.getAttribute("href")==="#"+id))}
+function syncHomeSearch(v){showPage("tools");$("search").value=v;renderTools()}
+function openToolsFromHome(){showPage("tools");$("search").value=$("homeSearch").value||"";renderTools()}
+function filterProject(cat){activeCat=cat;showPage("tools");renderCats();renderTools()}
+function field(label,id,type="text",placeholder="",value=""){return `<div class="field"><label>${label}</label><input id="${id}" type="${type}" placeholder="${placeholder}" value="${value}"></div>`}
+function area(label,id,placeholder="اكتب هنا..."){return `<div class="field"><label>${label}</label><textarea id="${id}" placeholder="${placeholder}"></textarea></div>`}
+function fileField(label="اختر الملفات",multiple=false,accept="*/*"){return `<div class="field"><label>${label}</label><input id="files" type="file" ${multiple?"multiple":""} accept="${accept}"></div>`}
+function selectField(label,id,opts){return `<div class="field"><label>${label}</label><select id="${id}">${opts.map(x=>`<option value="${x[0]}">${x[1]}</option>`).join("")}</select></div>`}
+function runButton(text="تنفيذ الأداة"){return `<div class="actions"><button class="btn" onclick="runTool()">${text}</button><button class="btn light" onclick="clearResult()">مسح النتيجة</button></div>`}
+function openTool(id){activeTool=tools.find(t=>t[0]===id);if(!activeTool)return;$("toolTitle").textContent=activeTool[1];$("toolDesc").textContent=activeTool[3];$("toolResult").innerHTML="";let f="",k=activeTool[4];
+if(k==="filepdf"){f=fileField("اختر ملف PDF أو الملفات",[1,4,20].includes(id),id===4?"image/*":"application/pdf");if([1,4].includes(id))f=fileField("اختر الملفات",true,id===4?"image/*":"application/pdf");if([2,5,6,7].includes(id))f+=field("أرقام الصفحات (مثال: 1,3,5-7)","pages","text","1,3,5-7");if(id===6)f+=selectField("زاوية التدوير","angle",[[90,"90 درجة"],[180,"180 درجة"],[270,"270 درجة"]]);if(id===9)f+=field("نص العلامة المائية","watermark","text","أنجز");if(id===8)f+=field("بداية الترقيم","startnum","number","1","1");f+=runButton()}
+else if(k==="image"){f=fileField("اختر صورة أو الصور",id===20,"image/*");if([11,17].includes(id))f+=field("جودة الصورة (من 10 إلى 100)","quality","number","75","75");if([12,13].includes(id))f+=`<div class="row">${field("العرض بالبكسل","width","number","800","800")}${field("الارتفاع بالبكسل","height","number","600","600")}</div>`;if(id===17)f+=field("الحجم المستهدف بالكيلوبايت","target","number","200","200");if(id===19)f+=selectField("اتجاه الدوران","angle",[[90,"يمين 90°"],[180,"180°"],[270,"يسار 90°"]]);f+=runButton()}
+else if(k==="calc"){if(id===21)f=field("تاريخ الميلاد","date1","date");if(id===22)f=field("السعر الأصلي","a","number")+field("نسبة الخصم %","b","number");if(id===23)f=field("قيمة المبلغ","a","number")+field("عدد الشهور","b","number")+field("نسبة الفائدة السنوية %","c","number","0","0");if(id===24)f=field("الراتب الأساسي","a","number")+field("إجمالي الخصومات","b","number");if(id===25)f=field("القيمة","a","number")+field("الإجمالي","b","number");if(id===26)f=field("المبلغ قبل الضريبة","a","number")+field("نسبة الضريبة %","b","number","14","14");if(id===27)f=field("التاريخ الأول","date1","date")+field("التاريخ الثاني","date2","date");if(id===28)f=field("قدرة الجهاز بالوات","a","number")+field("ساعات التشغيل يوميًا","b","number")+field("عدد الأيام","c","number","30","30")+field("سعر الكيلووات ساعة بالجنيه","d","number");if(id===29)f=field("الطول بالمتر","a","number")+field("العرض بالمتر","b","number");if(id===30)f=field("إجمالي الفاتورة","a","number")+field("عدد الأشخاص","b","number");f+=runButton("احسب")}
+else if(k==="text"||k==="text2"){f=area(id===36?"النص الأول":"النص","txt");if(id===36)f+=area("النص الثاني","txt2");if(id===33)f+=selectField("التحويل","mode",[["upper","أحرف إنجليزية كبيرة"],["lower","أحرف إنجليزية صغيرة"],["title","بداية كل كلمة كبيرة"]]);f+=runButton("معالجة النص")}
+else if(k==="random")f=field("عدد الكلمات","amount","number","100","100")+runButton("إنشاء النص");
+else if(k==="cv")f=field("الاسم الكامل","name")+field("المسمى الوظيفي","job")+field("رقم الهاتف","phone")+field("البريد الإلكتروني","email","email")+area("نبذة عنك","summary")+area("المهارات","skills")+area("الخبرات والتعليم","experience")+runButton("إنشاء السيرة الذاتية");
+else if(k==="cover")f=field("اسمك","name")+field("اسم الشركة","company")+field("المسمى الوظيفي","job")+area("خبراتك ومهاراتك","details")+runButton("إنشاء الخطاب");
+else if(k==="invoice")f=field("اسم البائع","seller")+field("اسم العميل","buyer")+field("وصف الخدمة أو المنتج","item")+field("الكمية","qty","number","1","1")+field("سعر الوحدة بالجنيه","price","number")+runButton("إنشاء الفاتورة");
+else if(k==="tasks"||k==="shopping"||k==="budget")f=area(k==="budget"?"المصروفات، كل مصروف في سطر: البند - المبلغ":"اكتب عنصرًا في كل سطر","txt")+runButton("تجهيز للطباعة");
+else if(k==="qr")f=field("الرابط أو النص","qrtext","text","https://example.com")+runButton("إنشاء QR");
+else if(k==="password")f=field("طول كلمة المرور","amount","number","16","16")+`<label><input id="symbols" type="checkbox" checked style="width:auto"> تضمين رموز</label>`+runButton("إنشاء كلمة المرور");
+else if(k==="signature")f='<canvas id="sig" width="600" height="220" style="width:100%;border:1px solid #ccd6e4;border-radius:10px;touch-action:none;background:white"></canvas><div class="actions"><button class="btn light" onclick="clearSig()">مسح التوقيع</button><button class="btn" onclick="saveSig()">حفظ التوقيع PNG</button></div>';
+else if(k==="timer")f=field("المدة بالدقائق","amount","number","5","5")+'<div class="actions"><button class="btn" onclick="startTimer()">بدء المؤقت</button><button class="btn light" onclick="stopTimer()">إيقاف</button></div><h2 id="timerDisplay">05:00</h2>';
+$("toolForm").innerHTML=f;$("toolPanel").classList.add("show");$("toolPanel").scrollIntoView({behavior:"smooth",block:"start"});if(k==="signature")setupSig()}
+function closeTool(){$("toolPanel").classList.remove("show")}function clearResult(){$("toolResult").innerHTML=""}function out(s){$("toolResult").textContent=s}function num(id){return Number($(id)?.value||0)}
+function pagesFrom(str,total){let set=new Set();str.split(",").forEach(part=>{let p=part.trim();if(p.includes("-")){let [a,b]=p.split("-").map(Number);for(let i=Math.max(1,a);i<=Math.min(total,b);i++)set.add(i-1)}else{let n=Number(p);if(n>=1&&n<=total)set.add(n-1)}});return [...set].sort((a,b)=>a-b)}
+function downloadBlob(blob,name){if(!blob)throw Error("تعذر تجهيز الملف.");let a=document.createElement("a"),u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
+async function runTool(){if(!activeTool)return;let id=activeTool[0],kind=activeTool[4];try{if(kind==="filepdf")return await runPdf(id);if(kind==="image")return await runImage(id);if(kind==="calc")return calcTool(id);if(kind==="text"||kind==="text2")return textTool(id);if(kind==="random"){let n=Math.max(1,Math.min(5000,num("amount"))),words="أنجز بسهولة أدوات مجانية تساعدك على تنظيم الوقت والعمل والتعلم وتحقيق أهدافك اليومية".split(" ");out(Array.from({length:n},()=>words[Math.floor(Math.random()*words.length)]).join(" "));return}if(["cv","cover","invoice"].includes(kind))return makeDocument(id);if(["tasks","shopping","budget"].includes(kind))return printText(activeTool[1],$("txt").value);if(kind==="qr"){if(!window.QRCode)throw Error("مكتبة QR غير متاحة؛ تحقق من الإنترنت.");let box=$("toolResult");box.innerHTML="";let d=document.createElement("div");box.appendChild(d);new QRCode(d,{text:$("qrtext").value,width:220,height:220});return}if(kind==="password"){let chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789"+($("symbols").checked?"!@#$%&*_-+=":""),n=Math.max(6,Math.min(128,num("amount")));out(Array.from({length:n},()=>chars[Math.floor(Math.random()*chars.length)]).join(""));return}}catch(e){out("تعذر تنفيذ العملية: "+(e.message||e)+"\nتأكد من اختيار ملف صحيح واتصال الإنترنت عند الحاجة.")}}
+async function runPdf(id){if(!window.PDFLib)throw Error("مكتبة PDF لم يتم تحميلها. تحقق من اتصال الإنترنت.");let fs=[...$("files").files];if(!fs.length)throw Error("اختر ملفًا أولًا.");let {PDFDocument,degrees,rgb,StandardFonts}=PDFLib;
+if(id===4){let pdf=await PDFDocument.create();for(let f of fs){let bytes=await f.arrayBuffer(),img;if(f.type==="image/png")img=await pdf.embedPng(bytes);else if(["image/jpeg","image/jpg"].includes(f.type))img=await pdf.embedJpg(bytes);else throw Error("أداة الصور إلى PDF تدعم JPG وPNG حاليًا.");let page=pdf.addPage([img.width,img.height]);page.drawImage(img,{x:0,y:0,width:img.width,height:img.height})}return downloadBlob(new Blob([await pdf.save()],{type:"application/pdf"}),"images.pdf")}
+if(id===1){let merged=await PDFDocument.create();for(let f of fs){let src=await PDFDocument.load(await f.arrayBuffer()),copied=await merged.copyPages(src,src.getPageIndices());copied.forEach(p=>merged.addPage(p))}return downloadBlob(new Blob([await merged.save()],{type:"application/pdf"}),"merged.pdf")}
+let src=await PDFDocument.load(await fs[0].arrayBuffer()),total=src.getPageCount(),pg=pagesFrom($("pages")?.value||"",total),pages=src.getPages();
+if(id===2){if(!pg.length)throw Error("اكتب أرقام الصفحات التي تريد تقسيمها، مثل 1-3.");for(let i of pg){let one=await PDFDocument.create(),copied=await one.copyPages(src,[i]);one.addPage(copied[0]);downloadBlob(new Blob([await one.save()],{type:"application/pdf"}),`page-${i+1}.pdf`)}return out("تم تجهيز الصفحات المحددة في ملفات منفصلة. قد يطلب المتصفح السماح بتنزيل عدة ملفات.")}
+if(id===5){if(!pg.length)throw Error("اكتب أرقام الصفحات المطلوب استخراجها.");let dest=await PDFDocument.create(),copied=await dest.copyPages(src,pg);copied.forEach(p=>dest.addPage(p));return downloadBlob(new Blob([await dest.save()],{type:"application/pdf"}),"extracted-pages.pdf")}
+if(id===7){if(!pg.length)throw Error("اكتب أرقام الصفحات التي تريد حذفها.");let keep=pages.map((_,i)=>i).filter(i=>!pg.includes(i));if(!keep.length)throw Error("لا يمكن حذف كل صفحات الملف.");let dest=await PDFDocument.create(),copied=await dest.copyPages(src,keep);copied.forEach(p=>dest.addPage(p));return downloadBlob(new Blob([await dest.save()],{type:"application/pdf"}),"pages-deleted.pdf")}
+if(id===6){let angle=num("angle");(pg.length?pg:pages.map((_,i)=>i)).forEach(i=>pages[i].setRotation(degrees((pages[i].getRotation().angle+angle)%360)))}
+if(id===8){let font=await src.embedFont(StandardFonts.Helvetica),start=Math.max(1,num("startnum")||1);pages.forEach((p,i)=>{let {width}=p.getSize();p.drawText(String(start+i),{x:width-45,y:18,size:10,font,color:rgb(.2,.2,.2)})})}
+if(id===9){let font=await src.embedFont(StandardFonts.Helvetica),txt=$("watermark").value||"ANJAZ";pages.forEach(p=>{let {width,height}=p.getSize();p.drawText(txt,{x:width/4,y:height/2,size:30,font,color:rgb(.75,.75,.75),opacity:.35,rotate:degrees(-25)})})}
+if(id===10){if(!window.pdfjsLib)throw Error("مكتبة عرض PDF غير متاحة.");pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";let doc=await pdfjsLib.getDocument({data:await fs[0].arrayBuffer()}).promise;for(let i=1;i<=doc.numPages;i++){let page=await doc.getPage(i),vp=page.getViewport({scale:1.5}),c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;await page.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;let blob=await new Promise(r=>c.toBlob(r,"image/png"));downloadBlob(blob,`page-${i}.png`)}return out("تم تجهيز صور الصفحات. قد يطلب المتصفح السماح بتنزيل عدة ملفات.")}
+if(id===3){if(!window.pdfjsLib||!window.jspdf)throw Error("مكتبات ضغط PDF غير متاحة.");pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";let doc=await pdfjsLib.getDocument({data:await fs[0].arrayBuffer()}).promise,{jsPDF}=window.jspdf,outPdf=null;for(let i=1;i<=doc.numPages;i++){let page=await doc.getPage(i),vp=page.getViewport({scale:1.1}),canvas=document.createElement("canvas");canvas.width=vp.width;canvas.height=vp.height;await page.render({canvasContext:canvas.getContext("2d"),viewport:vp}).promise;let data=canvas.toDataURL("image/jpeg",.62),w=vp.width,h=vp.height;if(!outPdf)outPdf=new jsPDF({orientation:w>h?"landscape":"portrait",unit:"pt",format:[w,h],compress:true});else outPdf.addPage([w,h],w>h?"landscape":"portrait");outPdf.addImage(data,"JPEG",0,0,w,h,undefined,"FAST")}return downloadBlob(outPdf.output("blob"),"compressed.pdf")}
+return downloadBlob(new Blob([await src.save()],{type:"application/pdf"}),"edited.pdf")}
+function loadImage(file){return new Promise((res,rej)=>{let im=new Image(),u=URL.createObjectURL(file);im.onload=()=>{URL.revokeObjectURL(u);res(im)};im.onerror=()=>{URL.revokeObjectURL(u);rej(Error("تعذر قراءة الصورة."))};im.src=u})}
+async function runImage(id){let fs=[...$("files").files];if(!fs.length)throw Error("اختر صورة أولًا.");let imgs=[];for(let f of fs)imgs.push(await loadImage(f));if(id===20){let cols=Math.ceil(Math.sqrt(imgs.length)),cw=300,ch=220,c=document.createElement("canvas");c.width=cols*cw;c.height=Math.ceil(imgs.length/cols)*ch;let x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);imgs.forEach((im,i)=>{let s=Math.min((cw-10)/im.width,(ch-10)/im.height),w=im.width*s,h=im.height*s;x.drawImage(im,(i%cols)*cw+(cw-w)/2,Math.floor(i/cols)*ch+(ch-h)/2,w,h)});return canvasDownload(c,"collage.jpg","image/jpeg",.9)}
+let im=imgs[0],w=im.width,h=im.height;if(id===19){let a=num("angle"),c=document.createElement("canvas"),ctx=c.getContext("2d");c.width=a%180?h:w;c.height=a%180?w:h;ctx.translate(c.width/2,c.height/2);ctx.rotate(a*Math.PI/180);ctx.drawImage(im,-w/2,-h/2);return canvasDownload(c,"rotated.png","image/png")}
+let nw=w,nh=h;if([12,13].includes(id)){nw=Math.max(1,num("width"));nh=Math.max(1,num("height"))}let c=document.createElement("canvas");c.width=nw;c.height=nh;let ctx=c.getContext("2d");if(id===18){ctx.fillStyle="#fff";ctx.fillRect(0,0,nw,nh)}if(id===13){let sw=Math.min(im.width,im.height*nw/nh),sh=sw*nh/nw,sx=(im.width-sw)/2,sy=(im.height-sh)/2;ctx.drawImage(im,sx,sy,sw,sh,0,0,nw,nh)}else ctx.drawImage(im,0,0,nw,nh);
+let mime=id===14?"image/png":id===16?"image/webp":"image/jpeg",q=Math.max(.1,Math.min(1,num("quality")/100||.75));if(id===17){let target=Math.max(10,num("target")||200)*1024,lo=.08,hi=.95,best=null;for(let step=0;step<10;step++){let mid=(lo+hi)/2,blob=await new Promise(resolve=>c.toBlob(resolve,"image/jpeg",mid));if(!blob)throw Error("المتصفح لم يستطع ضغط الصورة.");best=blob;if(blob.size>target)hi=mid;else lo=mid}return downloadBlob(best,"compressed-target.jpg")}
+return canvasDownload(c,"anjaz-image."+({"image/png":"png","image/webp":"webp"}[mime]||"jpg"),mime,q)}
+function canvasDownload(c,n,m,q){c.toBlob(b=>{if(b)downloadBlob(b,n);else alert("تعذر إنشاء الصورة.")},m,q);out("تم تجهيز الصورة للتنزيل.")}
+function calcTool(id){let a=num("a"),b=num("b"),c=num("c"),d=num("d"),r="";if(id===21){let birth=new Date($("date1").value);if(! $("date1").value||isNaN(birth))throw Error("أدخل تاريخ الميلاد.");let now=new Date();if(birth>now)throw Error("تاريخ الميلاد لا يمكن أن يكون في المستقبل.");let years=now.getFullYear()-birth.getFullYear(),months=now.getMonth()-birth.getMonth(),days=now.getDate()-birth.getDate();if(days<0){months--;days+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}if(months<0){years--;months+=12}r=`عمرك: ${years} سنة و${months} شهر و${days} يوم.`}
+if(id===22)r=`قيمة الخصم: ${(a*b/100).toFixed(2)}
+السعر بعد الخصم: ${(a-a*b/100).toFixed(2)}`;
+if(id===23){if(b<=0)throw Error("عدد الشهور يجب أن يكون أكبر من صفر.");let total=a*(1+(c/100)*(b/12));r=`القسط الشهري التقريبي: ${(total/b).toFixed(2)}
+إجمالي السداد: ${total.toFixed(2)}`}
+if(id===24)r="صافي الراتب: "+(a-b).toFixed(2);if(id===25){if(!b)throw Error("أدخل الإجمالي بشكل أكبر من صفر.");r="النسبة: "+(a/b*100).toFixed(2)+"%"}if(id===26)r=`قيمة الضريبة: ${(a*b/100).toFixed(2)}
+الإجمالي شامل الضريبة: ${(a+a*b/100).toFixed(2)}`;
+if(id===27){let x=new Date($("date1").value),y=new Date($("date2").value);if(!$("date1").value||!$("date2").value||isNaN(x)||isNaN(y))throw Error("أدخل التاريخين.");r="الفرق: "+Math.abs(Math.round((y-x)/86400000))+" يوم"}
+if(id===28)r=`الاستهلاك: ${(a/1000*b*c).toFixed(2)} كيلووات ساعة
+التكلفة التقديرية: ${(a/1000*b*c*d).toFixed(2)} جنيه`;if(id===29)r="المساحة: "+(a*b).toFixed(2)+" متر مربع";if(id===30){if(b<=0)throw Error("عدد الأشخاص غير صحيح.");r="نصيب كل شخص: "+(a/b).toFixed(2)+" جنيه"}out(r)}
+function textTool(id){let t=$("txt").value,r="";if(id===31)r=`الكلمات: ${(t.trim().match(/\S+/g)||[]).length}
+الحروف مع المسافات: ${t.length}
+الحروف بدون مسافات: ${t.replace(/\s/g,"").length}
+الأسطر: ${t?t.split(/\r?\n/).length:0}`;
+if(id===32)r=t.split(/\r?\n/).map(x=>x.replace(/\s+/g," ").trim()).join("\n").trim();if(id===33){let m=$("mode").value;r=m==="upper"?t.toUpperCase():m==="lower"?t.toLowerCase():t.toLowerCase().replace(/\b\w/g,x=>x.toUpperCase())}if(id===34)r=t.split(/\r?\n/).filter(Boolean).sort((a,b)=>a.localeCompare(b,"ar")).join("\n");if(id===35)r=[...new Set(t.split(/\r?\n/))].join("\n");if(id===36){let t2=$("txt2").value;r=`النص الأول: ${t.length} حرف
+النص الثاني: ${t2.length} حرف
+${t===t2?"النصان متطابقان تمامًا.":"النصان مختلفان."}`}if(id===37)r=(t.match(/\d+(?:[.,]\d+)?/g)||[]).join("\n");if(id===38)r=(t.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)||[]).join("\n");if(id===40)r=t.split(/\r?\n/).filter(x=>x.trim()).map(x=>"• "+x.trim()).join("\n");out(r);if(id!==31&&id!==36){let b=document.createElement("button");b.className="btn secondary";b.textContent="نسخ النتيجة";b.onclick=()=>navigator.clipboard?.writeText(r);$("toolResult").appendChild(document.createElement("br"));$("toolResult").appendChild(b)}}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function printText(title,text){let w=window.open("","_blank");if(!w){out("اسمح بفتح النوافذ المنبثقة للطباعة.");return}w.document.write(`<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><title>${escapeHtml(title)}</title><body style="font-family:Arial;padding:30px;white-space:pre-wrap"><h2>${escapeHtml(title)}</h2>${escapeHtml(text).replace(/\n/g,"<br>")}<script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
+function makeDocument(id){let title="",body="";if(id===41){title="السيرة الذاتية";body=`الاسم: ${$("name").value}
+المسمى الوظيفي: ${$("job").value}
+الهاتف: ${$("phone").value}
+البريد: ${$("email").value}
+
+نبذة:
+${$("summary").value}
+
+المهارات:
+${$("skills").value}
+
+الخبرات والتعليم:
+${$("experience").value}`}if(id===42){title="خطاب تقديم لوظيفة";body=`السيد/ مسؤول التوظيف في ${$("company").value}
+أتقدم لشغل وظيفة ${$("job").value}.
+
+${$("details").value}
+
+مع خالص التقدير،
+${$("name").value}`}if(id===43){title="فاتورة";body=`البائع: ${$("seller").value}
+العميل: ${$("buyer").value}
+الوصف: ${$("item").value}
+الكمية: ${num("qty")}
+سعر الوحدة: ${num("price")} جنيه
+الإجمالي: ${(num("qty")*num("price")).toFixed(2)} جنيه`}printText(title,body)}
+function setupSig(){let c=$("sig");sigCtx=c.getContext("2d");sigCtx.lineWidth=3;sigCtx.lineCap="round";sigCtx.strokeStyle="#10243b";let pos=e=>{let r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*c.width/r.width,y:(e.clientY-r.top)*c.height/r.height}};c.onpointerdown=e=>{sigDown=true;c.setPointerCapture(e.pointerId);let p=pos(e);sigCtx.beginPath();sigCtx.moveTo(p.x,p.y)};c.onpointermove=e=>{if(!sigDown)return;let p=pos(e);sigCtx.lineTo(p.x,p.y);sigCtx.stroke()};c.onpointerup=()=>sigDown=false;c.onpointercancel=()=>sigDown=false}
+function clearSig(){if(sigCtx)sigCtx.clearRect(0,0,600,220)}function saveSig(){$("sig").toBlob(b=>downloadBlob(b,"signature.png"))}
+function startTimer(){stopTimer();timerLeft=Math.max(1,num("amount"))*60;tickTimer();timerInt=setInterval(tickTimer,1000)}function tickTimer(){let m=Math.floor(timerLeft/60),s=timerLeft%60;if($("timerDisplay"))$("timerDisplay").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");if(timerLeft<=0){stopTimer();alert("انتهى الوقت!")}else timerLeft--}function stopTimer(){if(timerInt)clearInterval(timerInt);timerInt=null}
+function openOrder(i){orderService=services[i][0];$("modalTitle").textContent=orderService;$("modalDesc").textContent=services[i][1];$("modal").classList.add("show")}function closeModal(){$("modal").classList.remove("show")}
+function waOpen(message){if(!WHATSAPP_NUMBER){alert("رقم واتساب غير مضبوط.");return}let url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);window.open(url,"_blank","noopener")}
+function sendOrder(){let n=$("clientName").value,d=$("clientDetails").value;if(!d.trim()){alert("اكتب تفاصيل الطلب أولًا.");return}waOpen(`طلب خدمة من موقع أنجز
+الخدمة: ${orderService}
+الاسم: ${n}
+التفاصيل: ${d}`);closeModal()}
+function sendSiteMessage(){let n=$("msgName").value.trim(),type=$("msgType").value,subject=$("msgSubject").value.trim(),body=$("msgBody").value.trim();if(!body){alert("اكتب تفاصيل الرسالة أولًا.");return}waOpen(`رسالة من موقع أنجز
+الاسم: ${n||"غير مذكور"}
+النوع: ${type}
+العنوان: ${subject||"بدون عنوان"}
+التفاصيل: ${body}`)}
+function applyTheme(v){document.documentElement.dataset.theme=v;localStorage.setItem("anjaz_theme",v)}
+function applyFont(v){document.documentElement.style.setProperty("--base-font",v);localStorage.setItem("anjaz_font",v);if($("fontChoice"))$("fontChoice").value=v}
+function setPalette(name){const palettes={violet:{main:"#7566d9",soft:"#efedff",line:"#e7e3fb"},ocean:{main:"#397d86",soft:"#e8f3f3",line:"#dcebec"},earth:{main:"#a66f4f",soft:"#f5eee9",line:"#eee1d7"}};let p=palettes[name]||palettes.violet;document.documentElement.style.setProperty("--accent",p.main);document.documentElement.style.setProperty("--accent-soft",p.soft);document.documentElement.style.setProperty("--accent-line",p.line);document.documentElement.style.setProperty("--blue",p.main);document.documentElement.style.setProperty("--green",p.main);localStorage.setItem("anjaz_palette",name);document.querySelectorAll(".palette-choice").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick").includes("'"+name+"'")))}
+function applyDensity(v){document.documentElement.dataset.density=v;localStorage.setItem("anjaz_density",v);if($("densityChoice"))$("densityChoice").value=v}
+function resetSettings(){applyTheme("light");applyFont("16px");setPalette("violet");applyDensity("comfortable");if($("themeChoice"))$("themeChoice").value="light"}
+function loadSettings(){let t=localStorage.getItem("anjaz_theme")||"light",f=localStorage.getItem("anjaz_font")||"16px",a=localStorage.getItem("anjaz_palette")||"violet",d=localStorage.getItem("anjaz_density")||"comfortable";applyTheme(t);applyFont(f);setPalette(a);applyDensity(d);if($("themeChoice"))$("themeChoice").value=t}
+$("contactWhats").href="https://wa.me/"+WHATSAPP_NUMBER;$("year").textContent=new Date().getFullYear();renderCats();renderTools();renderServices();loadSettings();
+let initial=location.hash.replace("#","");if(initial&&document.getElementById(initial))showPage(initial);
+</script>
+</body>
+</html>
