@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
+  <meta name="google-site-verification" content="Lke73jh3Ls7uTujCcCX3yWsIFLTMV4FvdFVI4WrSr2k" />
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#f7f6f3">
@@ -298,92 +299,4 @@ $("toolForm").innerHTML=f;$("toolPanel").classList.add("show");$("toolPanel").sc
 function closeTool(){$("toolPanel").classList.remove("show")}function clearResult(){$("toolResult").innerHTML=""}function out(s){$("toolResult").textContent=s}function num(id){return Number($(id)?.value||0)}
 function pagesFrom(str,total){let set=new Set();str.split(",").forEach(part=>{let p=part.trim();if(p.includes("-")){let [a,b]=p.split("-").map(Number);for(let i=Math.max(1,a);i<=Math.min(total,b);i++)set.add(i-1)}else{let n=Number(p);if(n>=1&&n<=total)set.add(n-1)}});return [...set].sort((a,b)=>a-b)}
 function downloadBlob(blob,name){if(!blob)throw Error("تعذر تجهيز الملف.");let a=document.createElement("a"),u=URL.createObjectURL(blob);a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000)}
-async function runTool(){if(!activeTool)return;let id=activeTool[0],kind=activeTool[4];try{if(kind==="filepdf")return await runPdf(id);if(kind==="image")return await runImage(id);if(kind==="calc")return calcTool(id);if(kind==="text"||kind==="text2")return textTool(id);if(kind==="random"){let n=Math.max(1,Math.min(5000,num("amount"))),words="أنجز بسهولة أدوات مجانية تساعدك على تنظيم الوقت والعمل والتعلم وتحقيق أهدافك اليومية".split(" ");out(Array.from({length:n},()=>words[Math.floor(Math.random()*words.length)]).join(" "));return}if(["cv","cover","invoice"].includes(kind))return makeDocument(id);if(["tasks","shopping","budget"].includes(kind))return printText(activeTool[1],$("txt").value);if(kind==="qr"){if(!window.QRCode)throw Error("مكتبة QR غير متاحة؛ تحقق من الإنترنت.");let box=$("toolResult");box.innerHTML="";let d=document.createElement("div");box.appendChild(d);new QRCode(d,{text:$("qrtext").value,width:220,height:220});return}if(kind==="password"){let chars="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789"+($("symbols").checked?"!@#$%&*_-+=":""),n=Math.max(6,Math.min(128,num("amount")));out(Array.from({length:n},()=>chars[Math.floor(Math.random()*chars.length)]).join(""));return}}catch(e){out("تعذر تنفيذ العملية: "+(e.message||e)+"\nتأكد من اختيار ملف صحيح واتصال الإنترنت عند الحاجة.")}}
-async function runPdf(id){if(!window.PDFLib)throw Error("مكتبة PDF لم يتم تحميلها. تحقق من اتصال الإنترنت.");let fs=[...$("files").files];if(!fs.length)throw Error("اختر ملفًا أولًا.");let {PDFDocument,degrees,rgb,StandardFonts}=PDFLib;
-if(id===4){let pdf=await PDFDocument.create();for(let f of fs){let bytes=await f.arrayBuffer(),img;if(f.type==="image/png")img=await pdf.embedPng(bytes);else if(["image/jpeg","image/jpg"].includes(f.type))img=await pdf.embedJpg(bytes);else throw Error("أداة الصور إلى PDF تدعم JPG وPNG حاليًا.");let page=pdf.addPage([img.width,img.height]);page.drawImage(img,{x:0,y:0,width:img.width,height:img.height})}return downloadBlob(new Blob([await pdf.save()],{type:"application/pdf"}),"images.pdf")}
-if(id===1){let merged=await PDFDocument.create();for(let f of fs){let src=await PDFDocument.load(await f.arrayBuffer()),copied=await merged.copyPages(src,src.getPageIndices());copied.forEach(p=>merged.addPage(p))}return downloadBlob(new Blob([await merged.save()],{type:"application/pdf"}),"merged.pdf")}
-let src=await PDFDocument.load(await fs[0].arrayBuffer()),total=src.getPageCount(),pg=pagesFrom($("pages")?.value||"",total),pages=src.getPages();
-if(id===2){if(!pg.length)throw Error("اكتب أرقام الصفحات التي تريد تقسيمها، مثل 1-3.");for(let i of pg){let one=await PDFDocument.create(),copied=await one.copyPages(src,[i]);one.addPage(copied[0]);downloadBlob(new Blob([await one.save()],{type:"application/pdf"}),`page-${i+1}.pdf`)}return out("تم تجهيز الصفحات المحددة في ملفات منفصلة. قد يطلب المتصفح السماح بتنزيل عدة ملفات.")}
-if(id===5){if(!pg.length)throw Error("اكتب أرقام الصفحات المطلوب استخراجها.");let dest=await PDFDocument.create(),copied=await dest.copyPages(src,pg);copied.forEach(p=>dest.addPage(p));return downloadBlob(new Blob([await dest.save()],{type:"application/pdf"}),"extracted-pages.pdf")}
-if(id===7){if(!pg.length)throw Error("اكتب أرقام الصفحات التي تريد حذفها.");let keep=pages.map((_,i)=>i).filter(i=>!pg.includes(i));if(!keep.length)throw Error("لا يمكن حذف كل صفحات الملف.");let dest=await PDFDocument.create(),copied=await dest.copyPages(src,keep);copied.forEach(p=>dest.addPage(p));return downloadBlob(new Blob([await dest.save()],{type:"application/pdf"}),"pages-deleted.pdf")}
-if(id===6){let angle=num("angle");(pg.length?pg:pages.map((_,i)=>i)).forEach(i=>pages[i].setRotation(degrees((pages[i].getRotation().angle+angle)%360)))}
-if(id===8){let font=await src.embedFont(StandardFonts.Helvetica),start=Math.max(1,num("startnum")||1);pages.forEach((p,i)=>{let {width}=p.getSize();p.drawText(String(start+i),{x:width-45,y:18,size:10,font,color:rgb(.2,.2,.2)})})}
-if(id===9){let font=await src.embedFont(StandardFonts.Helvetica),txt=$("watermark").value||"ANJAZ";pages.forEach(p=>{let {width,height}=p.getSize();p.drawText(txt,{x:width/4,y:height/2,size:30,font,color:rgb(.75,.75,.75),opacity:.35,rotate:degrees(-25)})})}
-if(id===10){if(!window.pdfjsLib)throw Error("مكتبة عرض PDF غير متاحة.");pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";let doc=await pdfjsLib.getDocument({data:await fs[0].arrayBuffer()}).promise;for(let i=1;i<=doc.numPages;i++){let page=await doc.getPage(i),vp=page.getViewport({scale:1.5}),c=document.createElement("canvas");c.width=vp.width;c.height=vp.height;await page.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;let blob=await new Promise(r=>c.toBlob(r,"image/png"));downloadBlob(blob,`page-${i}.png`)}return out("تم تجهيز صور الصفحات. قد يطلب المتصفح السماح بتنزيل عدة ملفات.")}
-if(id===3){if(!window.pdfjsLib||!window.jspdf)throw Error("مكتبات ضغط PDF غير متاحة.");pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";let doc=await pdfjsLib.getDocument({data:await fs[0].arrayBuffer()}).promise,{jsPDF}=window.jspdf,outPdf=null;for(let i=1;i<=doc.numPages;i++){let page=await doc.getPage(i),vp=page.getViewport({scale:1.1}),canvas=document.createElement("canvas");canvas.width=vp.width;canvas.height=vp.height;await page.render({canvasContext:canvas.getContext("2d"),viewport:vp}).promise;let data=canvas.toDataURL("image/jpeg",.62),w=vp.width,h=vp.height;if(!outPdf)outPdf=new jsPDF({orientation:w>h?"landscape":"portrait",unit:"pt",format:[w,h],compress:true});else outPdf.addPage([w,h],w>h?"landscape":"portrait");outPdf.addImage(data,"JPEG",0,0,w,h,undefined,"FAST")}return downloadBlob(outPdf.output("blob"),"compressed.pdf")}
-return downloadBlob(new Blob([await src.save()],{type:"application/pdf"}),"edited.pdf")}
-function loadImage(file){return new Promise((res,rej)=>{let im=new Image(),u=URL.createObjectURL(file);im.onload=()=>{URL.revokeObjectURL(u);res(im)};im.onerror=()=>{URL.revokeObjectURL(u);rej(Error("تعذر قراءة الصورة."))};im.src=u})}
-async function runImage(id){let fs=[...$("files").files];if(!fs.length)throw Error("اختر صورة أولًا.");let imgs=[];for(let f of fs)imgs.push(await loadImage(f));if(id===20){let cols=Math.ceil(Math.sqrt(imgs.length)),cw=300,ch=220,c=document.createElement("canvas");c.width=cols*cw;c.height=Math.ceil(imgs.length/cols)*ch;let x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);imgs.forEach((im,i)=>{let s=Math.min((cw-10)/im.width,(ch-10)/im.height),w=im.width*s,h=im.height*s;x.drawImage(im,(i%cols)*cw+(cw-w)/2,Math.floor(i/cols)*ch+(ch-h)/2,w,h)});return canvasDownload(c,"collage.jpg","image/jpeg",.9)}
-let im=imgs[0],w=im.width,h=im.height;if(id===19){let a=num("angle"),c=document.createElement("canvas"),ctx=c.getContext("2d");c.width=a%180?h:w;c.height=a%180?w:h;ctx.translate(c.width/2,c.height/2);ctx.rotate(a*Math.PI/180);ctx.drawImage(im,-w/2,-h/2);return canvasDownload(c,"rotated.png","image/png")}
-let nw=w,nh=h;if([12,13].includes(id)){nw=Math.max(1,num("width"));nh=Math.max(1,num("height"))}let c=document.createElement("canvas");c.width=nw;c.height=nh;let ctx=c.getContext("2d");if(id===18){ctx.fillStyle="#fff";ctx.fillRect(0,0,nw,nh)}if(id===13){let sw=Math.min(im.width,im.height*nw/nh),sh=sw*nh/nw,sx=(im.width-sw)/2,sy=(im.height-sh)/2;ctx.drawImage(im,sx,sy,sw,sh,0,0,nw,nh)}else ctx.drawImage(im,0,0,nw,nh);
-let mime=id===14?"image/png":id===16?"image/webp":"image/jpeg",q=Math.max(.1,Math.min(1,num("quality")/100||.75));if(id===17){let target=Math.max(10,num("target")||200)*1024,lo=.08,hi=.95,best=null;for(let step=0;step<10;step++){let mid=(lo+hi)/2,blob=await new Promise(resolve=>c.toBlob(resolve,"image/jpeg",mid));if(!blob)throw Error("المتصفح لم يستطع ضغط الصورة.");best=blob;if(blob.size>target)hi=mid;else lo=mid}return downloadBlob(best,"compressed-target.jpg")}
-return canvasDownload(c,"anjaz-image."+({"image/png":"png","image/webp":"webp"}[mime]||"jpg"),mime,q)}
-function canvasDownload(c,n,m,q){c.toBlob(b=>{if(b)downloadBlob(b,n);else alert("تعذر إنشاء الصورة.")},m,q);out("تم تجهيز الصورة للتنزيل.")}
-function calcTool(id){let a=num("a"),b=num("b"),c=num("c"),d=num("d"),r="";if(id===21){let birth=new Date($("date1").value);if(! $("date1").value||isNaN(birth))throw Error("أدخل تاريخ الميلاد.");let now=new Date();if(birth>now)throw Error("تاريخ الميلاد لا يمكن أن يكون في المستقبل.");let years=now.getFullYear()-birth.getFullYear(),months=now.getMonth()-birth.getMonth(),days=now.getDate()-birth.getDate();if(days<0){months--;days+=new Date(now.getFullYear(),now.getMonth(),0).getDate()}if(months<0){years--;months+=12}r=`عمرك: ${years} سنة و${months} شهر و${days} يوم.`}
-if(id===22)r=`قيمة الخصم: ${(a*b/100).toFixed(2)}
-السعر بعد الخصم: ${(a-a*b/100).toFixed(2)}`;
-if(id===23){if(b<=0)throw Error("عدد الشهور يجب أن يكون أكبر من صفر.");let total=a*(1+(c/100)*(b/12));r=`القسط الشهري التقريبي: ${(total/b).toFixed(2)}
-إجمالي السداد: ${total.toFixed(2)}`}
-if(id===24)r="صافي الراتب: "+(a-b).toFixed(2);if(id===25){if(!b)throw Error("أدخل الإجمالي بشكل أكبر من صفر.");r="النسبة: "+(a/b*100).toFixed(2)+"%"}if(id===26)r=`قيمة الضريبة: ${(a*b/100).toFixed(2)}
-الإجمالي شامل الضريبة: ${(a+a*b/100).toFixed(2)}`;
-if(id===27){let x=new Date($("date1").value),y=new Date($("date2").value);if(!$("date1").value||!$("date2").value||isNaN(x)||isNaN(y))throw Error("أدخل التاريخين.");r="الفرق: "+Math.abs(Math.round((y-x)/86400000))+" يوم"}
-if(id===28)r=`الاستهلاك: ${(a/1000*b*c).toFixed(2)} كيلووات ساعة
-التكلفة التقديرية: ${(a/1000*b*c*d).toFixed(2)} جنيه`;if(id===29)r="المساحة: "+(a*b).toFixed(2)+" متر مربع";if(id===30){if(b<=0)throw Error("عدد الأشخاص غير صحيح.");r="نصيب كل شخص: "+(a/b).toFixed(2)+" جنيه"}out(r)}
-function textTool(id){let t=$("txt").value,r="";if(id===31)r=`الكلمات: ${(t.trim().match(/\S+/g)||[]).length}
-الحروف مع المسافات: ${t.length}
-الحروف بدون مسافات: ${t.replace(/\s/g,"").length}
-الأسطر: ${t?t.split(/\r?\n/).length:0}`;
-if(id===32)r=t.split(/\r?\n/).map(x=>x.replace(/\s+/g," ").trim()).join("\n").trim();if(id===33){let m=$("mode").value;r=m==="upper"?t.toUpperCase():m==="lower"?t.toLowerCase():t.toLowerCase().replace(/\b\w/g,x=>x.toUpperCase())}if(id===34)r=t.split(/\r?\n/).filter(Boolean).sort((a,b)=>a.localeCompare(b,"ar")).join("\n");if(id===35)r=[...new Set(t.split(/\r?\n/))].join("\n");if(id===36){let t2=$("txt2").value;r=`النص الأول: ${t.length} حرف
-النص الثاني: ${t2.length} حرف
-${t===t2?"النصان متطابقان تمامًا.":"النصان مختلفان."}`}if(id===37)r=(t.match(/\d+(?:[.,]\d+)?/g)||[]).join("\n");if(id===38)r=(t.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi)||[]).join("\n");if(id===40)r=t.split(/\r?\n/).filter(x=>x.trim()).map(x=>"• "+x.trim()).join("\n");out(r);if(id!==31&&id!==36){let b=document.createElement("button");b.className="btn secondary";b.textContent="نسخ النتيجة";b.onclick=()=>navigator.clipboard?.writeText(r);$("toolResult").appendChild(document.createElement("br"));$("toolResult").appendChild(b)}}
-function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-function printText(title,text){let w=window.open("","_blank");if(!w){out("اسمح بفتح النوافذ المنبثقة للطباعة.");return}w.document.write(`<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><title>${escapeHtml(title)}</title><body style="font-family:Arial;padding:30px;white-space:pre-wrap"><h2>${escapeHtml(title)}</h2>${escapeHtml(text).replace(/\n/g,"<br>")}<script>window.onload=()=>window.print()<\/script></body></html>`);w.document.close()}
-function makeDocument(id){let title="",body="";if(id===41){title="السيرة الذاتية";body=`الاسم: ${$("name").value}
-المسمى الوظيفي: ${$("job").value}
-الهاتف: ${$("phone").value}
-البريد: ${$("email").value}
-
-نبذة:
-${$("summary").value}
-
-المهارات:
-${$("skills").value}
-
-الخبرات والتعليم:
-${$("experience").value}`}if(id===42){title="خطاب تقديم لوظيفة";body=`السيد/ مسؤول التوظيف في ${$("company").value}
-أتقدم لشغل وظيفة ${$("job").value}.
-
-${$("details").value}
-
-مع خالص التقدير،
-${$("name").value}`}if(id===43){title="فاتورة";body=`البائع: ${$("seller").value}
-العميل: ${$("buyer").value}
-الوصف: ${$("item").value}
-الكمية: ${num("qty")}
-سعر الوحدة: ${num("price")} جنيه
-الإجمالي: ${(num("qty")*num("price")).toFixed(2)} جنيه`}printText(title,body)}
-function setupSig(){let c=$("sig");sigCtx=c.getContext("2d");sigCtx.lineWidth=3;sigCtx.lineCap="round";sigCtx.strokeStyle="#10243b";let pos=e=>{let r=c.getBoundingClientRect();return{x:(e.clientX-r.left)*c.width/r.width,y:(e.clientY-r.top)*c.height/r.height}};c.onpointerdown=e=>{sigDown=true;c.setPointerCapture(e.pointerId);let p=pos(e);sigCtx.beginPath();sigCtx.moveTo(p.x,p.y)};c.onpointermove=e=>{if(!sigDown)return;let p=pos(e);sigCtx.lineTo(p.x,p.y);sigCtx.stroke()};c.onpointerup=()=>sigDown=false;c.onpointercancel=()=>sigDown=false}
-function clearSig(){if(sigCtx)sigCtx.clearRect(0,0,600,220)}function saveSig(){$("sig").toBlob(b=>downloadBlob(b,"signature.png"))}
-function startTimer(){stopTimer();timerLeft=Math.max(1,num("amount"))*60;tickTimer();timerInt=setInterval(tickTimer,1000)}function tickTimer(){let m=Math.floor(timerLeft/60),s=timerLeft%60;if($("timerDisplay"))$("timerDisplay").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");if(timerLeft<=0){stopTimer();alert("انتهى الوقت!")}else timerLeft--}function stopTimer(){if(timerInt)clearInterval(timerInt);timerInt=null}
-function openOrder(i){orderService=services[i][0];$("modalTitle").textContent=orderService;$("modalDesc").textContent=services[i][1];$("modal").classList.add("show")}function closeModal(){$("modal").classList.remove("show")}
-function waOpen(message){if(!WHATSAPP_NUMBER){alert("رقم واتساب غير مضبوط.");return}let url="https://wa.me/"+WHATSAPP_NUMBER+"?text="+encodeURIComponent(message);window.open(url,"_blank","noopener")}
-function sendOrder(){let n=$("clientName").value,d=$("clientDetails").value;if(!d.trim()){alert("اكتب تفاصيل الطلب أولًا.");return}waOpen(`طلب خدمة من موقع أنجز
-الخدمة: ${orderService}
-الاسم: ${n}
-التفاصيل: ${d}`);closeModal()}
-function sendSiteMessage(){let n=$("msgName").value.trim(),type=$("msgType").value,subject=$("msgSubject").value.trim(),body=$("msgBody").value.trim();if(!body){alert("اكتب تفاصيل الرسالة أولًا.");return}waOpen(`رسالة من موقع أنجز
-الاسم: ${n||"غير مذكور"}
-النوع: ${type}
-العنوان: ${subject||"بدون عنوان"}
-التفاصيل: ${body}`)}
-function applyTheme(v){document.documentElement.dataset.theme=v;localStorage.setItem("anjaz_theme",v)}
-function applyFont(v){document.documentElement.style.setProperty("--base-font",v);localStorage.setItem("anjaz_font",v);if($("fontChoice"))$("fontChoice").value=v}
-function setPalette(name){const palettes={violet:{main:"#7566d9",soft:"#efedff",line:"#e7e3fb"},ocean:{main:"#397d86",soft:"#e8f3f3",line:"#dcebec"},earth:{main:"#a66f4f",soft:"#f5eee9",line:"#eee1d7"}};let p=palettes[name]||palettes.violet;document.documentElement.style.setProperty("--accent",p.main);document.documentElement.style.setProperty("--accent-soft",p.soft);document.documentElement.style.setProperty("--accent-line",p.line);document.documentElement.style.setProperty("--blue",p.main);document.documentElement.style.setProperty("--green",p.main);localStorage.setItem("anjaz_palette",name);document.querySelectorAll(".palette-choice").forEach(b=>b.classList.toggle("active",b.getAttribute("onclick").includes("'"+name+"'")))}
-function applyDensity(v){document.documentElement.dataset.density=v;localStorage.setItem("anjaz_density",v);if($("densityChoice"))$("densityChoice").value=v}
-function resetSettings(){applyTheme("light");applyFont("16px");setPalette("violet");applyDensity("comfortable");if($("themeChoice"))$("themeChoice").value="light"}
-function loadSettings(){let t=localStorage.getItem("anjaz_theme")||"light",f=localStorage.getItem("anjaz_font")||"16px",a=localStorage.getItem("anjaz_palette")||"violet",d=localStorage.getItem("anjaz_density")||"comfortable";applyTheme(t);applyFont(f);setPalette(a);applyDensity(d);if($("themeChoice"))$("themeChoice").value=t}
-$("contactWhats").href="https://wa.me/"+WHATSAPP_NUMBER;$("year").textContent=new Date().getFullYear();renderCats();renderTools();renderServices();loadSettings();
-let initial=location.hash.replace("#","");if(initial&&document.getElementById(initial))showPage(initial);
-</script>
-</body>
-</html>
+async function runTool(){if(!activeTool)return;let id=activeTool[0],kind=activeTool[4];try{if(kind==="filepdf")return await runPdf(id);if(kind==="image")return await runImage(id);if(kind==="calc")return calcTool(id);if(kind==="text"||kind==="text2")return textTool(id);if(kind==="random"){let n=Math.max(1,Math.min(5000,num("amount"))),words="أنجز بسهولة أدوات مجانية تساعدك على تنظيم الوقت والعمل والتعلم وتحقيق أهدافك اليومية".split(" ");out(Array.from({length:n},()=>words[Math.floor(Math.random()*words.length)])
